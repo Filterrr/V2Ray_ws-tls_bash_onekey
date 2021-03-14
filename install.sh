@@ -29,7 +29,7 @@ OK="${Green}[OK]${Font}"
 Error="${Red}[错误]${Font}"
 
 # 版本
-shell_version="1.1.5.7"
+shell_version="1.1.5.8"
 shell_mode="None"
 github_branch="master"
 version_cmp="/tmp/version_cmp.tmp"
@@ -305,7 +305,7 @@ web_camouflage() {
     rm -rf /home/wwwroot
     mkdir -p /home/wwwroot
     cd /home/wwwroot || exit
-    git clone https://github.com/tatygrassini/landio-html.git
+    git clone https://github.com/Filterrr/3DCEList.git
     judge "web 站点伪装"
 }
 v2ray_install() {
