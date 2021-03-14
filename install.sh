@@ -305,7 +305,7 @@ web_camouflage() {
     rm -rf /home/wwwroot
     mkdir -p /home/wwwroot
     cd /home/wwwroot || exit
-    git clone https://github.com/wulabing/3DCEList.git
+    git clone https://github.com/tatygrassini/landio-html.git
     judge "web 站点伪装"
 }
 v2ray_install() {
