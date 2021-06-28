@@ -1049,6 +1049,7 @@ menu() {
         start_process_systemd
         ;;
     14)
+        source '/etc/os-release'
         uninstall_all
         ;;
     15)
