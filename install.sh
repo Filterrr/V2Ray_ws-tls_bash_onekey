@@ -29,7 +29,7 @@ OK="${Green}[OK]${Font}"
 Error="${Red}[错误]${Font}"
 
 # 版本
-shell_version="1.1.6.1"
+shell_version="1.1.6.2"
 shell_mode="None"
 github_branch="master"
 version_cmp="/tmp/version_cmp.tmp"
@@ -621,7 +621,7 @@ nginx_process_disabled() {
 #    judge "rc.local 配置"
 #}
 acme_cron_update() {
-    wget -N -P /usr/bin --no-check-certificate "https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_onekey/dev/ssl_update.sh"
+    wget -N -P /usr/bin --no-check-certificate "https://raw.githubusercontent.com/Filterrr/V2Ray_ws-tls_bash_onekey/dev/ssl_update.sh"
     if [[ $(crontab -l | grep -c "ssl_update.sh") -lt 1 ]]; then
       if [[ "${ID}" == "centos" ]]; then
           #        sed -i "/acme.sh/c 0 3 * * 0 \"/root/.acme.sh\"/acme.sh --cron --home \"/root/.acme.sh\" \
