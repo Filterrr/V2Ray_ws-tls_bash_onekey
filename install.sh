@@ -128,19 +128,39 @@ judge() {
 }
 
 chrony_install() {
-        read -p "同步时区为北京时间 ? 请输入[Y/n]:" osTimezoneInput
-        osTimezoneInput=${osTimezoneInput:-Y}
-        
-        if [[ $osTimezoneInput == [Yy] ]]; then
-            if [[ -f /etc/localtime ]] && [[ -f /usr/share/zoneinfo/Asia/Shanghai ]]; then
-                rm -rf /etc/localtime /etc/localtime.bak
-                ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-                
-                date
-                
-            fi
-        fi
-    judge "请确认时间是否准确,误差范围±3分钟"
+    ${INS} -y install chrony
+    judge "安装 chrony 时间同步服务 "
+
+    timedatectl set-ntp true
+
+    if [[ "${ID}" == "centos" ]]; then
+        systemctl enable chronyd && systemctl restart chronyd
+    else
+        systemctl enable chrony && systemctl restart chrony
+    fi
+
+    judge "chronyd 启动 "
+
+    timedatectl set-timezone Asia/Shanghai
+
+    echo -e "${OK} ${GreenBG} 等待时间同步 ${Font}"
+    sleep 10
+
+    chronyc sourcestats -v
+    chronyc tracking -v
+    date
+    read -rp "请确认时间是否准确,误差范围±3分钟(Y/N): " chrony_install
+    [[ -z ${chrony_install} ]] && chrony_install="Y"
+    case $chrony_install in
+    [yY][eE][sS] | [yY])
+        echo -e "${GreenBG} 继续安装 ${Font}"
+        sleep 2
+        ;;
+    *)
+        echo -e "${RedBG} 安装终止 ${Font}"
+        exit 2
+        ;;
+    esac
 }
 
 dependency_install() {
@@ -303,7 +323,7 @@ v2ray_install() {
     fi
     mkdir -p /root/v2ray
     cd /root/v2ray || exit
-    wget -N --no-check-certificate https://raw.githubusercontent.com/Filterrr/V2Ray_ws-tls_bash_onekey/${github_branch}/v2ray.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/wulabing/V2Ray_ws-tls_bash_onekey/${github_branch}/v2ray.sh
 
     if [[ -f v2ray.sh ]]; then
         rm -rf $v2ray_systemd_file
@@ -548,11 +568,13 @@ nginx_conf_add() {
         index index.html index.htm;
         root  /home/wwwroot/3DCEList;
         error_page 400 = /400.html;
+
         # Config for 0-RTT in TLSv1.3
         ssl_early_data on;
         ssl_stapling on;
         ssl_stapling_verify on;
         add_header Strict-Transport-Security "max-age=31536000";
+
         location /ray/
         {
         proxy_redirect off;
@@ -564,6 +586,7 @@ nginx_conf_add() {
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_set_header Host \$http_host;
+
         # Config for 0-RTT in TLSv1.3
         proxy_set_header Early-Data \$ssl_early_data;
         }
@@ -769,6 +792,7 @@ nginx_systemd() {
 [Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network.target remote-fs.target nss-lookup.target
+
 [Service]
 Type=forking
 PIDFile=/etc/nginx/logs/nginx.pid
@@ -777,6 +801,7 @@ ExecStart=/etc/nginx/sbin/nginx -c ${nginx_dir}/conf/nginx.conf
 ExecReload=/etc/nginx/sbin/nginx -s reload
 ExecStop=/bin/kill -s QUIT \$MAINPID
 PrivateTmp=true
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -885,7 +910,7 @@ judge_mode() {
 install_v2ray_ws_tls() {
     is_root
     check_system
-    chrony_install
+#    chrony_install
     dependency_install
     basic_optimization
     domain_check
@@ -1005,7 +1030,6 @@ menu() {
     echo -e "${Green}9.${Font}  查看 实时错误日志"
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
-    echo -e "${Green}88.${Font} 同步时区为北京时间"
     echo -e "${Green}11.${Font} 安装 4合1 bbr 锐速安装脚本"
     echo -e "${Green}12.${Font} 安装 MTproxy(支持TLS混淆)"
     echo -e "${Green}13.${Font} 证书 有效期更新"
@@ -1049,9 +1073,6 @@ menu() {
         ;;
     8)
         show_access_log
-        ;;
-    88 )
-        chrony_install
         ;;
     9)
         show_error_log
