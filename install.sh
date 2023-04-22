@@ -128,7 +128,7 @@ judge() {
 }
 
 chrony_install() {
-        read -p "同步时区为北京时间 ? 请输入[Y/n]:" osTimezoneInput
+        read -p "正在同步时区为北京时间 ? 请输入[Y/n]:" osTimezoneInput
         osTimezoneInput=${osTimezoneInput:-Y}
         
         if [[ $osTimezoneInput == [Yy] ]]; then
