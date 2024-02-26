@@ -826,8 +826,13 @@ ssl_update_manuel() {
     "$HOME"/.acme.sh/acme.sh --installcert -d "${domain}" --fullchainpath /data/v2ray.crt --keypath /data/v2ray.key --ecc
 }
 
+warp_boost_sh() {
+    [ -f "tcp.sh" ] && rm -rf bash menu.sh
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh [option] [lisence/url/token]
+}
+
 bbr_boost_sh() {
-    [ -f "tcp.sh" ] && rm -rf ./tcp.sh
+    [ -f "tcp.sh" ] && rm -rf ./install_kernel.sh
     wget --no-check-certificate https://raw.githubusercontent.com/jinwyp/one_click_script/${github_branch}/install_kernel.sh && chmod +x ./install_kernel.sh && ./install_kernel.sh
 }
 
@@ -1007,7 +1012,8 @@ menu() {
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
     echo -e "${Green}88.${Font} 同步时区为北京时间"
-    echo -e "${Green}11.${Font} 安装 BBR / BBR Plus / BBR2 / wireguard 和 WARP"
+    echo -e "${Green}89.${Font} 安装 WARP"
+    echo -e "${Green}11.${Font} 安装 BBR / BBR Plus / BBR2"
     echo -e "${Green}12.${Font} 安装 MTproxy(支持TLS混淆)"
     echo -e "${Green}13.${Font} 证书 有效期更新"
     echo -e "${Green}14.${Font} 卸载 V2Ray"
@@ -1065,6 +1071,9 @@ menu() {
             vmess_qr_link_image
         fi
         show_information
+        ;;
+    89)
+        warp_boost_sh
         ;;
     11)
         bbr_boost_sh
