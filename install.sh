@@ -828,7 +828,7 @@ ssl_update_manuel() {
 
 warp_boost_sh() {
     [ -f "tcp.sh" ] && rm -rf bash menu.sh
-    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh [option] [lisence/url/token]
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh [option] [lisence]
 }
 
 bbr_boost_sh() {
@@ -1012,7 +1012,7 @@ menu() {
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
     echo -e "${Green}88.${Font} 同步时区为北京时间"
-    echo -e "${Green}89.${Font} 安装 WARP"
+    echo -e "${Green}89.${Font} 安装 WARP-GO"
     echo -e "${Green}11.${Font} 安装 BBR / BBR Plus / BBR2"
     echo -e "${Green}12.${Font} 安装 MTproxy(支持TLS混淆)"
     echo -e "${Green}13.${Font} 证书 有效期更新"
