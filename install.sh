@@ -128,8 +128,8 @@ judge() {
 }
 
 chrony_install() {
-        read -p "正在同步时区为北京时间 :" osTimezoneInput
-        osTimezoneInput=${osTimezoneInput:-Y}
+#        read -p "正在同步时区为北京时间 ? 请输入[Y/n]:" osTimezoneInput
+#        osTimezoneInput=${osTimezoneInput:-Y}
         
 #        if [[ $osTimezoneInput == [Yy] ]]; then
             if [[ -f /etc/localtime ]] && [[ -f /usr/share/zoneinfo/Asia/Shanghai ]]; then
@@ -140,7 +140,7 @@ chrony_install() {
                 
             fi
 #        fi
-    judge "请确认时间是否准确,误差范围±3分钟"
+    judge "同步完成,请确认时间是否准确,误差范围±3分钟"
 }
 
 dependency_install() {
