@@ -139,7 +139,7 @@ chrony_install() {
                 date
                 
             fi
-        fi
+#        fi
     judge "请确认时间是否准确,误差范围±3分钟"
 }
 
