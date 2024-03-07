@@ -128,10 +128,10 @@ judge() {
 }
 
 chrony_install() {
-        read -p "正在同步时区为北京时间 ? 请输入[Y/n]:" osTimezoneInput
+        read -p "正在同步时区为北京时间 :" osTimezoneInput
         osTimezoneInput=${osTimezoneInput:-Y}
         
-        if [[ $osTimezoneInput == [Yy] ]]; then
+#        if [[ $osTimezoneInput == [Yy] ]]; then
             if [[ -f /etc/localtime ]] && [[ -f /usr/share/zoneinfo/Asia/Shanghai ]]; then
                 rm -rf /etc/localtime /etc/localtime.bak
                 ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
