@@ -1018,7 +1018,7 @@ menu() {
     echo -e "${Green}9.${Font}  查看 实时错误日志"
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
-    echo -e "${Green}88.${Font} 安装 禁止BT，PT协议，SMAP发包"
+    echo -e "${Green}87.${Font} 禁止BT，PT协议，SMAP发包"
     echo -e "${Green}88.${Font} 同步时区为北京时间"
     echo -e "${Green}89.${Font} 安装 WARP-GO"
     echo -e "${Green}11.${Font} 安装 BBR， BBR Plus， BBR2"
