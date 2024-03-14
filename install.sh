@@ -835,7 +835,7 @@ ban_iptables_BT() {
 
 warp_boost_sh() {
     [ -f "tcp.sh" ] && rm -rf bash menu.sh
-    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh [option] [lisence]
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh [option] [lisence/url/token]
 }
 
 bbr_boost_sh() {
