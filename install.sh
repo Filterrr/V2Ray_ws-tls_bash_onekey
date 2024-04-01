@@ -829,8 +829,13 @@ ssl_update_manuel() {
 }
 
 ban_iptables_BT() {
-    [ -f "tcp.sh" ] && rm -rf bash menu.sh
+    [ -f "tcp.sh" ] && rm -rf bash ban_iptables.sh
     wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh
+}
+
+ip46_sh() {
+    [ -f "tcp.sh" ] && rm -rf ip46.sh
+    bash <(curl -Lso- https://sh.vps.dance/ip46.sh)
 }
 
 warp_boost_sh() {
@@ -1018,6 +1023,7 @@ menu() {
     echo -e "${Green}9.${Font}  查看 实时错误日志"
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
+    echo -e "${Green}86.${Font} VPS IPv4/IPv6 优先级调整"
     echo -e "${Green}87.${Font} 禁止BT，PT协议，SMAP发包"
     echo -e "${Green}88.${Font} 同步时区为北京时间"
     echo -e "${Green}89.${Font} 安装 WARP-GO"
@@ -1076,6 +1082,9 @@ menu() {
             vmess_qr_link_image
         fi
         show_information
+        ;;
+    86)
+        ip46_sh
         ;;
     87)
         ban_iptables_BT
