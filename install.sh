@@ -839,8 +839,8 @@ ip46_sh() {
 }
 
 warp_boost_sh() {
-    [ -f "tcp.sh" ] && rm -rf bash menu.sh
-    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh [option] [lisence/url/token]
+    [ -f "tcp.sh" ] && rm -rf warp-go [option] [lisence]
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh [option] [lisence]
 }
 
 bbr_boost_sh() {
