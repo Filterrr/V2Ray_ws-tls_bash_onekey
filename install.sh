@@ -827,23 +827,28 @@ ssl_update_manuel() {
     "$HOME"/.acme.sh/acme.sh --installcert -d "${domain}" --fullchainpath /data/v2ray.crt --keypath /data/v2ray.key --ecc
 }
 
+suoha() {
+    [ -f "suoha" ] && rm -rf suoha
+    curl https://www.baipiao.eu.org/suoha.sh -o suoha.sh && bash suoha.sh
+}
+
 ban_iptables_BT() {
-    [ -f "tcp.sh" ] && rm -rf bash ban_iptables.sh
+    [ -f "bash ban_iptables.sh" ] && rm -rf bash ban_iptables.sh
     wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh
 }
 
 ip46_sh() {
-    [ -f "tcp.sh" ] && rm -rf ip46.sh
+    [ -f "ip46.sh" ] && rm -rf ip46.sh
     bash <(curl -Lso- https://sh.vps.dance/ip46.sh)
 }
 
 warp_boost_sh() {
-    [ -f "tcp.sh" ] && rm -rf warp-go [option] [lisence]
+    [ -f "warp-go.sh" ] && rm -rf warp-go
     wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh [option] [lisence]
 }
 
 bbr_boost_sh() {
-    [ -f "tcp.sh" ] && rm -rf ./install_kernel.sh
+    [ -f "./install_kernel.sh" ] && rm -rf ./install_kernel.sh
     wget --no-check-certificate https://raw.githubusercontent.com/jinwyp/one_click_script/${github_branch}/install_kernel.sh && chmod +x ./install_kernel.sh && ./install_kernel.sh
 }
 
@@ -1012,6 +1017,7 @@ menu() {
     echo -e "${Green}1.${Font}  安装 V2Ray (Nginx+ws+tls)"
     echo -e "${Green}2.${Font}  安装 V2Ray (http/2)"
     echo -e "${Green}3.${Font}  升级 V2Ray core"
+    echo -e "${Green}5.${Font}  安装梭哈脚本(无需网站)"
     echo -e "—————————————— 配置变更 ——————————————"
     echo -e "${Green}4.${Font}  变更 UUID"
     echo -e "${Green}6.${Font}  变更 port"
@@ -1054,6 +1060,9 @@ menu() {
         read -rp "请输入UUID:" UUID
         modify_UUID
         start_process_systemd
+        ;;
+    5)
+        suoha
         ;;
     6)
         read -rp "请输入连接端口:" port
