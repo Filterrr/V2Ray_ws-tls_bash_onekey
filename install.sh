@@ -827,7 +827,7 @@ ssl_update_manuel() {
     "$HOME"/.acme.sh/acme.sh --installcert -d "${domain}" --fullchainpath /data/v2ray.crt --keypath /data/v2ray.key --ecc
 }
 
-suoha() {
+suoha_sh() {
     [ -f "suoha" ] && rm -rf suoha
     curl https://www.baipiao.eu.org/suoha.sh -o suoha.sh && bash suoha.sh
 }
@@ -1017,7 +1017,7 @@ menu() {
     echo -e "${Green}1.${Font}  安装 V2Ray (Nginx+ws+tls)"
     echo -e "${Green}2.${Font}  安装 V2Ray (http/2)"
     echo -e "${Green}3.${Font}  升级 V2Ray core"
-    echo -e "${Green}5.${Font}  安装梭哈脚本(无需网站)"
+    echo -e "${Green}5.${Font}  安装 梭哈脚本(无需网站)"
     echo -e "—————————————— 配置变更 ——————————————"
     echo -e "${Green}4.${Font}  变更 UUID"
     echo -e "${Green}6.${Font}  变更 port"
@@ -1027,6 +1027,7 @@ menu() {
     echo -e "${Green}8.${Font}  查看 实时访问日志"
     echo -e "${Green}9.${Font}  查看 实时错误日志"
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
+    echo -e "${Green}85.${Font}  安装 梭哈脚本 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
     echo -e "${Green}86.${Font} VPS IPv4/IPv6 优先级调整"
     echo -e "${Green}87.${Font} 禁止BT，PT协议，SMAP发包"
@@ -1062,7 +1063,7 @@ menu() {
         start_process_systemd
         ;;
     5)
-        suoha
+        suoha_sh
         ;;
     6)
         read -rp "请输入连接端口:" port
@@ -1090,6 +1091,9 @@ menu() {
             vmess_qr_link_image
         fi
         show_information
+        ;;
+    85)
+        suoha
         ;;
     86)
         ip46_sh
