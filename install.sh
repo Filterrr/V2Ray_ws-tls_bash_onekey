@@ -843,8 +843,8 @@ ip46_sh() {
 }
 
 warp_boost_sh() {
-    [ -f "warp-go.sh" ] && rm -rf warp-go
-    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh [option] [lisence]
+    [ -f "warp" ] && rm -rf warp
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 }
 
 bbr_boost_sh() {
@@ -1032,7 +1032,7 @@ menu() {
     echo -e "${Green}86.${Font} VPS IPv4/IPv6 优先级调整"
     echo -e "${Green}87.${Font} 禁止BT，PT协议，SMAP发包"
     echo -e "${Green}88.${Font} 同步时区为北京时间"
-    echo -e "${Green}89.${Font} 安装 WARP-GO"
+    echo -e "${Green}89.${Font} 安装 WARP"
     echo -e "${Green}11.${Font} 安装 BBR， BBR Plus， BBR2"
     echo -e "${Green}12.${Font} 安装 MTproxy(支持TLS混淆)"
     echo -e "${Green}13.${Font} 证书 有效期更新"
