@@ -837,10 +837,6 @@ ban_iptables_BT() {
     wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh
 }
 
-ip46_sh() {
-    [ -f "ip46.sh" ] && rm -rf ip46.sh
-    bash <(curl -Lso- https://sh.vps.dance/ip46.sh)
-
 warp_boost_sh() {
     [ -f "warp" ] && rm -rf warp
     wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
@@ -1028,7 +1024,6 @@ menu() {
     echo -e "${Green}10.${Font} 查看 V2Ray 配置信息"
     echo -e "${Green}85.${Font} 查看 梭哈脚本 配置信息"
     echo -e "—————————————— 其他选项 ——————————————"
-    echo -e "${Green}86.${Font} VPS IPv4/IPv6 优先级调整"
     echo -e "${Green}87.${Font} 禁止BT，PT协议，SMAP发包"
     echo -e "${Green}88.${Font} 同步时区为北京时间"
     echo -e "${Green}89.${Font} 安装 WARP"
@@ -1122,9 +1117,6 @@ menu() {
         ;;
     85)
         suoha
-        ;;
-    86)
-        ip46_sh
         ;;
     87)
         ban_iptables_BT
