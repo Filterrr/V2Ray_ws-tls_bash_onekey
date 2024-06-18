@@ -837,7 +837,7 @@ ban_iptables_BT() {
     wget -N --no-check-certificate https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/ban_iptables.sh && chmod +x ban_iptables.sh && bash ban_iptables.sh
 }
 
-function ip46_sh(){
+ip46_sh(){
 
     if [[ -f "/etc/gai.conf" ]]; then
         sed -i '/^precedence \:\:ffff\:0\:0/d' /etc/gai.conf
