@@ -1012,7 +1012,7 @@ menu() {
     echo -e "${Green}1.${Font}  安装 V2Ray (Nginx+ws+tls)"
     echo -e "${Green}2.${Font}  安装 V2Ray (http/2)"
     echo -e "${Green}3.${Font}  升级 V2Ray core"
-    echo -e "${Green}4.${Font}  安装 梭哈脚本 (无需网站)"
+    echo -e "${Green}4.${Font}  安装 梭哈脚本 (无需网址)"
     echo -e "—————————————— 配置变更 ——————————————"
     echo -e "${Green}5.${Font}  变更 UUID"
     echo -e "${Green}6.${Font}  变更 port"
