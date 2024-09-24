@@ -829,7 +829,7 @@ ssl_update_manuel() {
 
 suoha_sh() {
     [ -f "suoha" ] && rm -rf suoha
-    curl https://www.baipiao.eu.org/suoha.sh -o suoha.sh && bash suoha.sh
+    curl https://raw.githubusercontent.com/Filterrr/suoha.sh/main/suoha.sh -o suoha.sh && bash suoha.sh
 }
 
 ban_iptables_BT() {
