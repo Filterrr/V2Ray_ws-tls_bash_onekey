@@ -536,7 +536,7 @@ old_config_exist_check() {
     fi
 }
 
-function preferIPV4(){
+preferIPV4(){
 
     if [[ -f "/etc/gai.conf" ]]; then
         sed -i '/^precedence \:\:ffff\:0\:0/d' /etc/gai.conf
