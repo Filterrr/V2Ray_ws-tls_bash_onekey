@@ -843,8 +843,8 @@ warp_boost_sh() {
 }
 
 bbr_boost_sh() {
-    [ -f "./install_kernel.sh" ] && rm -rf ./install_kernel.sh
-    wget --no-check-certificate https://raw.githubusercontent.com/jinwyp/one_click_script/${github_branch}/install_kernel.sh && chmod +x ./install_kernel.sh && ./install_kernel.sh
+    [ -f "./tcp.sh" ] && rm -rf ./tcp.sh
+    bash <(wget -qO- https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcp.sh)
 }
 
 mtproxy_sh() {
