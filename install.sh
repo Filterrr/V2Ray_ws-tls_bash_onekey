@@ -1119,7 +1119,6 @@ menu() {
         ;;
     19)
         bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
-	bash install.sh
         ;;
     20)
         bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
@@ -1133,6 +1132,7 @@ menu() {
         ;;
     88 )
         chrony_install
+	bash install.sh
         ;;
     89)
         warp_boost_sh
