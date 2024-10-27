@@ -1033,7 +1033,9 @@ menu() {
     echo -e "${Green}14.${Font} 卸载 V2Ray"
     echo -e "${Green}15.${Font} 更新 证书crontab计划任务"
     echo -e "${Green}16.${Font} 清空 证书遗留文件"
-    echo -e "${Green}17.${Font} 退出 (Ctrl+C) \n"
+    echo -e "${Green}19.${Font} 网络 IPv4/6 网络访问优先级设置"
+    echo -e "${Green}20.${Font} 查看 IPv4/6 网络访问优先级"
+    echo -e "${Green}00.${Font} 退出 (Ctrl+C) \n"
 
     read -rp "请输入数字：" menu_num
     case $menu_num in
@@ -1107,13 +1109,19 @@ menu() {
     16)
         delete_tls_key_and_crt
         ;;
-    17)
+    00)
         exit 0
         ;;
     18)
         read -rp "请输入伪装路径(注意！不需要加斜杠 eg:ray):" camouflage_path
         modify_camouflage_path
         start_process_systemd
+        ;;
+    19)
+        bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
+        ;;
+    20)
+        bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
         ;;
     85)
         suoha
