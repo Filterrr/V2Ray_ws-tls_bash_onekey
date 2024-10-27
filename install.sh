@@ -1033,7 +1033,7 @@ menu() {
     echo -e "${Green}14.${Font} 卸载 V2Ray"
     echo -e "${Green}15.${Font} 更新 证书crontab计划任务"
     echo -e "${Green}16.${Font} 清空 证书遗留文件"
-    echo -e "${Green}19.${Font} 网络 IPv4/6 网络访问优先级设置"
+    echo -e "${Green}19.${Font} IPv4/6 网络访问优先级设置"
     echo -e "${Green}20.${Font} 查看 IPv4/6 网络访问优先级"
     echo -e "${Green}00.${Font} 退出 (Ctrl+C) \n"
 
