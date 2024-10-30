@@ -144,9 +144,9 @@ chrony_install() {
 }
 
 46test() {
-            if bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
+            bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
                 
-            fi
+            
     judge "查询完成"
 }
 
