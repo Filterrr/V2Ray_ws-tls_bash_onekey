@@ -143,6 +143,13 @@ chrony_install() {
     judge "同步完成,请确认时间是否准确,误差范围±3分钟"
 }
 
+46test() {
+            if bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
+                
+            fi
+    judge "查询完成"
+}
+
 dependency_install() {
     ${INS} install wget git lsof bind9-dnsutils -y
 
@@ -1121,7 +1128,7 @@ menu() {
         bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
         ;;
     20)
-        bash <(curl -L -s https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/46test.sh)
+        46test
 	bash install.sh
         ;;
     85)
