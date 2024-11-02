@@ -845,8 +845,8 @@ ban_iptables_BT() {
 }
 
 warp_boost_sh() {
-    [ -f "warp" ] && rm -rf warp
-    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
+    [ -f "warp-go" ] && rm -rf warp-go
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh
 }
 
 bbr_boost_sh() {
