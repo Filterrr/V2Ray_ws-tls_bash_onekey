@@ -846,16 +846,12 @@ ban_iptables_BT() {
 
 warp_boost_sh() {
     [ -f "warp-go" ] && rm -rf warp-go
-    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/warp-go.sh && bash warp-go.sh
+    wget -N https://gitlab.com/fscarmen/warp/-/raw/main/menu.sh && bash menu.sh
 }
 
 bbr_boost_sh() {
     [ -f "./tcp.sh" ] && rm -rf ./tcp.sh
     bash <(wget -qO- https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcp.sh)
-}
-
-mtproxy_sh() {
-    echo -e "${Error} ${RedBG} 功能维护，暂不可用 ${Font}"
 }
 
 uninstall_all() {
@@ -1034,9 +1030,8 @@ menu() {
     echo -e "—————————————— 其他选项 ——————————————"
     echo -e "${Green}87.${Font} 禁止 BT，PT协议，SMAP发包"
     echo -e "${Green}88.${Font} 同步 时区为北京时间"
-    echo -e "${Green}89.${Font} 安装 WARP"
     echo -e "${Green}11.${Font} 安装 BBR， BBR Plus， BBR2"
-    echo -e "${Green}12.${Font} 安装 MTproxy(支持TLS混淆)"
+    echo -e "${Green}12.${Font} 安装 WARP"
     echo -e "${Green}13.${Font} 证书 有效期更新"
     echo -e "${Green}14.${Font} 卸载 V2Ray"
     echo -e "${Green}15.${Font} 更新 证书crontab计划任务"
@@ -1098,9 +1093,6 @@ menu() {
     11)
         bbr_boost_sh
         ;;
-    12)
-        mtproxy_sh
-        ;;
     13)
         stop_process_systemd
         ssl_update_manuel
@@ -1137,11 +1129,11 @@ menu() {
     87)
         ban_iptables_BT
         ;;
-    88 )
+    88)
         chrony_install
 	bash install.sh
         ;;
-    89)
+    12)
         warp_boost_sh
         ;;
     *)
