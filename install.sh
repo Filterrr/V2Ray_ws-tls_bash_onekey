@@ -1120,8 +1120,7 @@ menu() {
         bash <(curl -L -s  https://raw.githubusercontent.com/ChellyL/ipv4-6-switch/main/ipv_switch.sh)
         ;;
     20)
-        46test
-	bash install.sh
+        46test && bash install.sh
         ;;
     85)
         suoha
