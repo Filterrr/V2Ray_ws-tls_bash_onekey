@@ -150,129 +150,6 @@ chrony_install() {
     judge "查询完成"
 }
 
-insxuiwpph(){
-ins(){
-if [ ! -e /usr/local/x-ui/xuiwpph ]; then
-case $(uname -m) in
-aarch64) cpu=arm64;;
-x86_64) cpu=amd64;;
-esac
-curl -L -o /usr/local/x-ui/xuiwpph -# --retry 2 --insecure https://raw.githubusercontent.com/yonggekkk/x-ui-yg/main/xuiwpph_$cpu
-chmod +x /usr/local/x-ui/xuiwpph
-fi
-if [[ -n $(ps -e | grep xuiwpph) ]]; then
-kill -15 $(cat /usr/local/x-ui/xuiwpphid.log 2>/dev/null) >/dev/null 2>&1
-fi
-v4v6
-if [[ -z $v4 ]]; then
-red "IPV4不存在，确保安装过WARP-IPV4模式"
-fi 
-[[ -n $v6 ]] && sw46=6 || sw46=4
-echo
-readp "设置WARP-plus-Socks5端口（回车跳过端口默认40000）：" port
-if [[ -z $port ]]; then
-port=40000
-until [[ -z $(ss -tunlp | grep -w udp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") && -z $(ss -tunlp | grep -w tcp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") ]] 
-do
-[[ -n $(ss -tunlp | grep -w udp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") || -n $(ss -tunlp | grep -w tcp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") ]] && yellow "\n端口被占用，请重新输入端口" && readp "自定义端口:" port
-done
-else
-until [[ -z $(ss -tunlp | grep -w udp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") && -z $(ss -tunlp | grep -w tcp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") ]]
-do
-[[ -n $(ss -tunlp | grep -w udp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") || -n $(ss -tunlp | grep -w tcp | awk '{print $5}' | sed 's/.*://g' | grep -w "$port") ]] && yellow "\n端口被占用，请重新输入端口" && readp "自定义端口:" port
-done
-fi
-}
-unins(){
-kill -15 $(cat /usr/local/x-ui/xuiwpphid.log 2>/dev/null) >/dev/null 2>&1
-rm -rf /usr/local/x-ui/xuiwpph.log /usr/local/x-ui/xuiwpphid.log
-crontab -l > /tmp/crontab.tmp
-sed -i '/xuiwpphid.log/d' /tmp/crontab.tmp
-crontab /tmp/crontab.tmp
-rm /tmp/crontab.tmp
-}
-echo
-yellow "1：重置启用WARP-plus-Socks5本地Warp代理模式"
-yellow "2：重置启用WARP-plus-Socks5多地区Psiphon代理模式"
-yellow "3：停止WARP-plus-Socks5代理模式"
-yellow "0：返回上层"
-readp "请选择【0-3】：" menu
-if [ "$menu" = "1" ]; then
-ins
-nohup setsid /usr/local/x-ui/xuiwpph -b 127.0.0.1:$port --gool -$sw46 >/dev/null 2>&1 & echo "$!" > /usr/local/x-ui/xuiwpphid.log
-green "申请IP中……请稍等……" && sleep 20
-resv1=$(curl -s --socks5 localhost:$port icanhazip.com)
-resv2=$(curl -sx socks5h://localhost:$port icanhazip.com)
-if [[ -z $resv1 && -z $resv2 ]]; then
-red "WARP-plus-Socks5的IP获取失败" && unins && exit
-else
-echo "/usr/local/x-ui/xuiwpph -b 127.0.0.1:$port --gool -$sw46 >/dev/null 2>&1" > /usr/local/x-ui/xuiwpph.log
-crontab -l > /tmp/crontab.tmp
-sed -i '/xuiwpphid.log/d' /tmp/crontab.tmp
-echo '@reboot /bin/bash -c "nohup setsid $(cat /usr/local/x-ui/xuiwpph.log 2>/dev/null) & pid=\$! && echo \$pid > /usr/local/x-ui/xuiwpphid.log"' >> /tmp/crontab.tmp
-crontab /tmp/crontab.tmp
-rm /tmp/crontab.tmp
-green "WARP-plus-Socks5的IP获取成功，可进行Socks5代理分流"
-fi
-elif [ "$menu" = "2" ]; then
-ins
-echo '
-奥地利（AT）
-澳大利亚（AU）
-比利时（BE）
-保加利亚（BG）
-加拿大（CA）
-瑞士（CH）
-捷克 (CZ)
-德国（DE）
-丹麦（DK）
-爱沙尼亚（EE）
-西班牙（ES）
-芬兰（FI）
-法国（FR）
-英国（GB）
-克罗地亚（HR）
-匈牙利 (HU)
-爱尔兰（IE）
-印度（IN）
-意大利 (IT)
-日本（JP）
-立陶宛（LT）
-拉脱维亚（LV）
-荷兰（NL）
-挪威 (NO)
-波兰（PL）
-葡萄牙（PT）
-罗马尼亚 (RO)
-塞尔维亚（RS）
-瑞典（SE）
-新加坡 (SG)
-斯洛伐克（SK）
-美国（US）
-'
-readp "可选择国家地区（输入末尾两个大写字母，如美国，则输入US）：" guojia
-nohup setsid /usr/local/x-ui/xuiwpph -b 127.0.0.1:$port --cfon --country $guojia -$sw46 >/dev/null 2>&1 & echo "$!" > /usr/local/x-ui/xuiwpphid.log
-green "申请IP中……请稍等……" && sleep 20
-resv1=$(curl -s --socks5 localhost:$port icanhazip.com)
-resv2=$(curl -sx socks5h://localhost:$port icanhazip.com)
-if [[ -z $resv1 && -z $resv2 ]]; then
-red "WARP-plus-Socks5的IP获取失败，尝试换个国家地区吧" && unins && exit
-else
-echo "/usr/local/x-ui/xuiwpph -b 127.0.0.1:$port --cfon --country $guojia -$sw46 >/dev/null 2>&1" > /usr/local/x-ui/xuiwpph.log
-crontab -l > /tmp/crontab.tmp
-sed -i '/xuiwpphid.log/d' /tmp/crontab.tmp
-echo '@reboot /bin/bash -c "nohup setsid $(cat /usr/local/x-ui/xuiwpph.log 2>/dev/null) & pid=\$! && echo \$pid > /usr/local/x-ui/xuiwpphid.log"' >> /tmp/crontab.tmp
-crontab /tmp/crontab.tmp
-rm /tmp/crontab.tmp
-green "WARP-plus-Socks5的IP获取成功，可进行Socks5代理分流"
-fi
-elif [ "$menu" = "3" ]; then
-unins && green "已停止WARP-plus-Socks5代理功能"
-else
-show_menu
-fi
-}
-
 dependency_install() {
     ${INS} install wget git lsof bind9-dnsutils -y
 
@@ -1155,7 +1032,6 @@ menu() {
     echo -e "${Green}88.${Font} 同步 时区为北京时间"
     echo -e "${Green}11.${Font} 安装 BBR， BBR Plus， BBR2"
     echo -e "${Green}12.${Font} 安装 WARP"
-    echo -e "${Green}89.${Font} 安装 Socks-WARP"
     echo -e "${Green}13.${Font} 证书 有效期更新"
     echo -e "${Green}14.${Font} 卸载 V2Ray"
     echo -e "${Green}15.${Font} 更新 证书crontab计划任务"
@@ -1254,14 +1130,10 @@ menu() {
         ban_iptables_BT
         ;;
     88)
-        chrony_install
-	bash install.sh
+        chrony_install && bash install.sh
         ;;
     12)
         warp_boost_sh
-        ;;
-    89)
-        insxuiwpph
         ;;
     *)
         echo -e "${RedBG}请输入正确的数字${Font}"
